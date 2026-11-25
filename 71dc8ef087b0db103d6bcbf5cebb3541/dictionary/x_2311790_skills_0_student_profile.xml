@@ -11,6 +11,9 @@
                 <element inactive_on_update="false" label="Pending" sequence="100" value="pending"/>
             </choice>
         </element>
+        <element label="Parse Error" max_length="1000" name="u_parse_error" type="string"/>
+        <element label="Parse Attempts" max_length="40" name="u_parse_attempts" type="integer"/>
+        <element label="Parsed Attachment Sys ID" max_length="32" name="u_parsed_attachment_sys_id" type="string"/>
         <index name="index">
             <element name="u_user"/>
         </index>
