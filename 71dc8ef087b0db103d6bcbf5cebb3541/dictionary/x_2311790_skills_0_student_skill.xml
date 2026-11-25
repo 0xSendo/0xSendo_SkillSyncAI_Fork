@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="7a311a3c87b0db103d6bcbf5cebb3581" label="Student Skill" max_length="40" name="x_2311790_skills_0_student_skill" type="collection">
+        <element label="Profile" mandatory="true" max_length="32" name="u_profile" reference="x_2311790_skills_0_student_profile" type="reference"/>
+        <element label="Skill" max_length="32" name="u_skill" reference="x_2311790_skills_0_skill_master" type="reference"/>
+        <index name="index">
+            <element name="u_profile"/>
+        </index>
+        <index name="index2">
+            <element name="u_skill"/>
+        </index>
+    </element>
+</database>

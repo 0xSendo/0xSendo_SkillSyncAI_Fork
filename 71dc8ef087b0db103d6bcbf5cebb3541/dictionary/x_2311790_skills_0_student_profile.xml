@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="2e9f0e3887b0db103d6bcbf5cebb35a8" label="Student Profile" max_length="40" name="x_2311790_skills_0_student_profile" type="collection">
+        <element label="Embedding" max_length="8000" name="embedding" type="string"/>
+        <element label="Headline" max_length="100" name="u_headline" type="string"/>
+        <element label="Parsed Resume" max_length="4000" name="u_parsed_resume" type="string"/>
+        <element label="User" mandatory="true" max_length="32" name="u_user" reference="sys_user" type="reference"/>
+        <element choice="1" label="Parse Status" max_length="40" name="u_parse_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Parsed" sequence="200" value="parsed"/>
+                <element inactive_on_update="false" label="Failed" sequence="300" value="failed"/>
+                <element inactive_on_update="false" label="Pending" sequence="100" value="pending"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="u_user"/>
+        </index>
+    </element>
+</database>

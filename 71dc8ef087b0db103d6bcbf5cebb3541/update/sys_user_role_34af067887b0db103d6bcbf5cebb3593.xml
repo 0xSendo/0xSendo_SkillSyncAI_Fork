@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role">
+    <sys_user_role action="INSERT_OR_UPDATE">
+        <assignable_by/>
+        <can_delegate>true</can_delegate>
+        <description/>
+        <elevated_privilege>false</elevated_privilege>
+        <federated_id>cGG/IDcvYd4VRocUsz55aQgN38Ub3YhK/mnoDptuvU0=</federated_id>
+        <grantable>true</grantable>
+        <includes_roles/>
+        <name>x_2311790_skills_0.student_profile_user</name>
+        <scoped_admin>false</scoped_admin>
+        <suffix>student_profile_user</suffix>
+        <sys_class_name>sys_user_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-11-24 10:33:32</sys_created_on>
+        <sys_id>34af067887b0db103d6bcbf5cebb3593</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_2311790_skills_0.student_profile_user</sys_name>
+        <sys_package display_value="SkillSync" source="x_2311790_skills_0">71dc8ef087b0db103d6bcbf5cebb3541</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="SkillSync">71dc8ef087b0db103d6bcbf5cebb3541</sys_scope>
+        <sys_update_name>sys_user_role_34af067887b0db103d6bcbf5cebb3593</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-11-24 10:33:32</sys_updated_on>
+    </sys_user_role>
+</record_update>

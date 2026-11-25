@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column">
+    <sp_column action="DELETE">
+        <aria_label/>
+        <class_name/>
+        <order>1</order>
+        <semantic_tag/>
+        <size>12</size>
+        <size_lg/>
+        <size_sm/>
+        <size_xs/>
+        <sp_row display_value="1">a34e1ef48734db103d6bcbf5cebb3533</sp_row>
+        <sys_class_name>sp_column</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-11-24 11:37:38</sys_created_on>
+        <sys_id>a74e1ef48734db103d6bcbf5cebb3537</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="SkillSync" source="x_2311790_skills_0">71dc8ef087b0db103d6bcbf5cebb3541</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="SkillSync">71dc8ef087b0db103d6bcbf5cebb3541</sys_scope>
+        <sys_update_name>sp_column_a74e1ef48734db103d6bcbf5cebb3537</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-11-24 11:37:38</sys_updated_on>
+    </sp_column>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="SkillSync">71dc8ef087b0db103d6bcbf5cebb3541</application>
+        <file_path/>
+        <instance_id>84fae0083ba897d4677f04e0b5e45ad5</instance_id>
+        <instance_name>dev479485</instance_name>
+        <merge_base/>
+        <name>sp_column_a74e1ef48734db103d6bcbf5cebb3537</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column"><sp_column action="INSERT_OR_UPDATE"><aria_label/><class_name/><order>1</order><semantic_tag/><size>12</size><size_lg/><size_sm/><size_xs/><sp_row display_value="1">a34e1ef48734db103d6bcbf5cebb3533</sp_row><sys_class_name>sp_column</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-11-24 11:37:38</sys_created_on><sys_id>a74e1ef48734db103d6bcbf5cebb3537</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="SkillSync" source="x_2311790_skills_0">71dc8ef087b0db103d6bcbf5cebb3541</sys_package><sys_policy/><sys_scope display_value="SkillSync">71dc8ef087b0db103d6bcbf5cebb3541</sys_scope><sys_update_name>sp_column_a74e1ef48734db103d6bcbf5cebb3537</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-11-24 11:37:38</sys_updated_on></sp_column></record_update>]]></payload>
+        <payload_hash>1554911325</payload_hash>
+        <record_name>1</record_name>
+        <reverted_from/>
+        <source>31dc8ef087b0db103d6bcbf5cebb3554</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-11-24 11:37:38</sys_created_on>
+        <sys_id>2f4e1ef48734db103d6bcbf5cebb353a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1a20d58e0730000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-11-24 11:37:38</sys_updated_on>
+        <type>Column</type>
+        <update_guid>eb4e1ef4ba34db1034a6b6385a904839</update_guid>
+        <update_guid_history>eb4e1ef4ba34db1034a6b6385a904839:1554911325</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="1">e37e52388734db103d6bcbf5cebb3524</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-11-24 11:38:27</sys_created_on>
+        <sys_db_object display_value="" name="sp_column">sp_column</sys_db_object>
+        <sys_id>3a0cff7e8ae9484babd42f3e88a371d1</sys_id>
+        <sys_metadata>a74e1ef48734db103d6bcbf5cebb3537</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="SkillSync" source="x_2311790_skills_0">71dc8ef087b0db103d6bcbf5cebb3541</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="SkillSync">71dc8ef087b0db103d6bcbf5cebb3541</sys_scope>
+        <sys_scope_delete display_value="">430cca0cd10e4e949c5213e0d216f204</sys_scope_delete>
+        <sys_update_name>sp_column_a74e1ef48734db103d6bcbf5cebb3537</sys_update_name>
+        <sys_update_version display_value="sp_column_a74e1ef48734db103d6bcbf5cebb3537">2f4e1ef48734db103d6bcbf5cebb353a</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-11-24 11:38:27</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

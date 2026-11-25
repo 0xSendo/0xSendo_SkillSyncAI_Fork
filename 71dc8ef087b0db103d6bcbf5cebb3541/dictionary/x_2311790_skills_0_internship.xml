@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="f8d19a7c87b0db103d6bcbf5cebb3590" extends="task" label="Internship" max_length="40" name="x_2311790_skills_0_internship" type="collection">
+        <element label="Embedding" max_length="8000" name="u_embedding" type="string"/>
+        <element label="Org" max_length="32" name="u_org" reference="sys_user_group" type="reference"/>
+        <element choice="1" label="Status" max_length="40" name="u_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Posted" sequence="200" value="posted"/>
+                <element inactive_on_update="false" label="Draft" sequence="100" value="draft"/>
+                <element inactive_on_update="false" label="Closed" sequence="300" value="closed"/>
+            </choice>
+        </element>
+        <element label="Requirements" max_length="4000" name="u_requirements" type="string"/>
+    </element>
+</database>

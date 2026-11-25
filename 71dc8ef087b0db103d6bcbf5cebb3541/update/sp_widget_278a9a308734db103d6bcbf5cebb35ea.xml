@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($http, spUtil) {
+  var c = this;
+  c.selectedFile = null;
+  c.profileSysId = '';
+  c.uploading = false;
+
+  c.server.get({ action: 'get_profile' }).then(function(response) {
+    var result = (response && response.data) || {};
+    if (!result.profile_sys_id) {
+      spUtil.addErrorMessage(result.error || 'Could not find your student profile.');
+      return;
+    }
+    c.profileSysId = result.profile_sys_id;
+  });
+
+  c.onFileSelected = function(files) {
+    c.selectedFile = (files && files[0]) || null;
+  };
+
+  c.uploadResume = function() {
+    if (!c.selectedFile || !c.profileSysId) {
+      return;
+    }
+
+    c.uploading = true;
+    var url = '/api/now/attachment/file' +
+      '?table_name=x_2311790_skills_0_student_profile' +
+      '&table_sys_id=' + encodeURIComponent(c.profileSysId) +
+      '&file_name=' + encodeURIComponent(c.selectedFile.name);
+
+    $http.post(url, c.selectedFile, {
+      headers: {
+        'Content-Type': c.selectedFile.type || 'application/octet-stream',
+        'X-UserToken': window.g_ck
+      },
+      transformRequest: []
+    }).then(function() {
+      c.uploading = false;
+      c.selectedFile = null;
+      spUtil.addInfoMessage('Resume attached to your student profile.');
+    }, function(err) {
+      c.uploading = false;
+      var msg = (err && err.data && err.data.error && err.data.error.message) ||
+        'Upload failed. Check attachment permissions on the student profile table.';
+      spUtil.addErrorMessage(msg);
+    });
+  };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.skillsync-container {&#13;
+  max-width: 620px;&#13;
+  margin: 24px auto;&#13;
+  padding: 32px;&#13;
+  background: #fff;&#13;
+  border: 1px solid #d8e2e8;&#13;
+  border-radius: 12px;&#13;
+  box-shadow: 0 4px 14px rgba(17, 75, 95, 0.08);&#13;
+  text-align: center;&#13;
+}&#13;
+&#13;
+.skillsync-title {&#13;
+  margin: 0 0 8px;&#13;
+  color: #114b5f;&#13;
+  font-size: 22px;&#13;
+  font-weight: 700;&#13;
+}&#13;
+&#13;
+.skillsync-text,&#13;
+.skillsync-note {&#13;
+  color: #52666d;&#13;
+}&#13;
+&#13;
+.skillsync-note {&#13;
+  margin: 14px 0 0;&#13;
+  font-size: 13px;&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>resume-uploader</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Resume Uploader</name>
+        <option_schema/>
+        <public>false</public>
+        <roles>x_2311790_skills_0.student,x_2311790_skills_0.student_profile_user</roles>
+        <script><![CDATA[(function() {
+  data.table = 'x_2311790_skills_0_student_profile';
+  data.profile_sys_id = '';
+  data.error = '';
+
+  if (!gs.isLoggedIn()) {
+    data.error = 'Sign in to upload a resume.';
+    return;
+  }
+
+  var userId = gs.getUserID();
+  var profile = new GlideRecord(data.table);
+  profile.addQuery('u_user', userId);
+  profile.setLimit(1);
+  profile.query();
+
+  if (profile.next()) {
+    data.profile_sys_id = profile.getUniqueValue();
+  } else {
+    // Helps spot cross-scope blocks vs. user mismatch
+    var checkAll = new GlideRecord(data.table);
+    checkAll.query();
+    data.error = 'No profile matched user ' + userId + ' (visible rows: ' + checkAll.getRowCount() + ').';
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-11-24 11:23:33</sys_created_on>
+        <sys_id>278a9a308734db103d6bcbf5cebb35ea</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>Resume Uploader</sys_name>
+        <sys_package display_value="SkillSync" source="x_2311790_skills_0">71dc8ef087b0db103d6bcbf5cebb3541</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="SkillSync">71dc8ef087b0db103d6bcbf5cebb3541</sys_scope>
+        <sys_update_name>sp_widget_278a9a308734db103d6bcbf5cebb35ea</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-11-24 12:21:04</sys_updated_on>
+        <template><![CDATA[<div class="skillsync-container">
+  <h3 class="skillsync-title">Upload your resume</h3>
+
+  <label class="skillsync-dropzone" for="resumeFileInput">
+    <span>{{ c.selectedFile ? c.selectedFile.name : 'Click to choose a PDF, DOC, or DOCX file' }}</span>
+    <input id="resumeFileInput"
+           type="file"
+           accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+           onchange="angular.element(this).scope().c.onFileSelected(this.files)" />
+  </label>
+<br>
+  <button type="button"
+          class="btn btn-primary"
+          ng-disabled="!c.selectedFile || !c.profileSysId || c.uploading"
+          ng-click="c.uploadResume()">
+    {{ c.uploading ? 'Uploading...' : 'Upload Resume' }}
+  </button>
+
+  <p class="skillsync-note" aria-live="polite">
+    Your selected file will attach to your student profile.
+  </p>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description>API key for Google Gemini integration</description>
+        <ignore_cache>false</ignore_cache>
+        <is_private>true</is_private>
+        <name>x_2311790_skills_0.gemini_api_key</name>
+        <read_roles/>
+        <suffix>gemini_api_key</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-11-24 13:51:12</sys_created_on>
+        <sys_id>5e9cfabc87f4db103d6bcbf5cebb3536</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_2311790_skills_0.gemini_api_key</sys_name>
+        <sys_package display_value="SkillSync" source="x_2311790_skills_0">71dc8ef087b0db103d6bcbf5cebb3541</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="SkillSync">71dc8ef087b0db103d6bcbf5cebb3541</sys_scope>
+        <sys_update_name>sys_properties_5e9cfabc87f4db103d6bcbf5cebb3536</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-11-24 13:51:12</sys_updated_on>
+        <type>password2</type>
+        <value>{{gpaes}}l+sD2BfH5P4BXQJp5rzqZP69GzyMPkjX1+RF6atWow1YzWTalcz59eZmf7J5YMgE</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=5e9cfabc87f4db103d6bcbf5cebb3536"/>
+</record_update>
