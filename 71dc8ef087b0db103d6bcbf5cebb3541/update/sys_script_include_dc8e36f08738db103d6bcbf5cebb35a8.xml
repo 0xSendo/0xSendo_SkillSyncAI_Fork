@@ -84,7 +84,7 @@ GeminiUtils.prototype = {
         return {
             systemInstruction: {
                 parts: [{
-                    text: 'You are an accurate resume parser. Extract only facts explicitly present in the attached PDF resume. Do not invent skills, roles, or experience.'
+                    text: 'You are an accurate resume parser. Extract only facts explicitly present in the attached PDF resume. Do not invent skills, roles, or experience. Return JSON only and match the provided response schema.'
                 }]
             },
             contents: [{
@@ -97,7 +97,7 @@ GeminiUtils.prototype = {
                         }
                     },
                     {
-                        text: 'Extract a short professional headline and a factual parsed_resume summary from this PDF. Return JSON only.'
+                        text: 'Extract a short headline, a factual parsed_resume summary, up to 10 skills, up to 10 tools, education, experience_years, and projects. Use confidence between 0 and 1. Use evidence only when the resume explicitly supports it.'
                     }
                 ]
             }],
@@ -114,10 +114,54 @@ GeminiUtils.prototype = {
                         parsed_resume: {
                             type: 'STRING',
                             description: 'Concise, factual summary of the candidate background, experience, and technical skills.'
+                        },
+                        skills: {
+                            type: 'ARRAY',
+                            description: 'Technical skills explicitly present in the resume.',
+                            items: {
+                                type: 'OBJECT',
+                                properties: {
+                                    name: { type: 'STRING' },
+                                    proficiency: { type: 'STRING', description: 'beginner, intermediate, or advanced' },
+                                    confidence: { type: 'NUMBER', description: 'Extraction confidence from 0 to 1.' },
+                                    evidence: { type: 'STRING' },
+                                    rank: { type: 'NUMBER', description: 'Importance order, 1 is highest.' }
+                                },
+                                required: ['name'],
+                                propertyOrdering: ['name', 'proficiency', 'confidence', 'evidence', 'rank']
+                            }
+                        },
+                        tools: {
+                            type: 'ARRAY',
+                            description: 'Tools, platforms, and technologies explicitly present in the resume.',
+                            items: {
+                                type: 'OBJECT',
+                                properties: {
+                                    name: { type: 'STRING' },
+                                    proficiency: { type: 'STRING' },
+                                    confidence: { type: 'NUMBER' },
+                                    evidence: { type: 'STRING' },
+                                    rank: { type: 'NUMBER' }
+                                },
+                                required: ['name'],
+                                propertyOrdering: ['name', 'proficiency', 'confidence', 'evidence', 'rank']
+                            }
+                        },
+                        education: {
+                            type: 'STRING',
+                            description: 'Education summary.'
+                        },
+                        experience_years: {
+                            type: 'NUMBER',
+                            description: 'Years of experience explicitly stated or clearly inferable from dates.'
+                        },
+                        projects: {
+                            type: 'STRING',
+                            description: 'Project summary.'
                         }
                     },
-                    required: ['headline', 'parsed_resume'],
-                    propertyOrdering: ['headline', 'parsed_resume']
+                    required: ['headline', 'parsed_resume', 'skills', 'tools', 'education', 'experience_years', 'projects'],
+                    propertyOrdering: ['headline', 'parsed_resume', 'skills', 'tools', 'education', 'experience_years', 'projects']
                 }
             }
         };
@@ -185,30 +229,139 @@ GeminiUtils.prototype = {
         if (!data || typeof data.headline !== 'string' || typeof data.parsed_resume !== 'string')
             return this._fail('INVALID_FIELDS', false, 'Gemini did not return headline and parsed_resume as strings.', 0);
 
-        var headline = data.headline.replace(/^\s+|\s+$/g, '');
-        var parsedResume = data.parsed_resume.replace(/^\s+|\s+$/g, '');
+        var headlineResult = this._trimTruncate(data.headline, 100);
+        var parsedResumeResult = this._trimTruncate(data.parsed_resume, 4000);
 
-        if (!headline || !parsedResume)
+        if (!headlineResult.value || !parsedResumeResult.value)
             return this._fail('EMPTY_FIELDS', false, 'Gemini returned empty headline or parsed_resume.', 0);
 
-        var truncated = false;
-        if (headline.length > 100) {
-            headline = headline.substring(0, 97) + '...';
+        if (!this._isArray(data.skills))
+            return this._fail('INVALID_SKILL_ARRAY', false, 'Gemini did not return skills as an array.', 0);
+
+        if (!this._isArray(data.tools))
+            return this._fail('INVALID_TOOL_ARRAY', false, 'Gemini did not return tools as an array.', 0);
+
+        if (typeof data.education !== 'string' || typeof data.projects !== 'string')
+            return this._fail('INVALID_STRUCTURED_RESPONSE', false, 'Gemini did not return education and projects as strings.', 0);
+
+        var skills = this._normalizeItemArray(data.skills, 'skill');
+        if (!skills.ok)
+            return skills;
+
+        var tools = this._normalizeItemArray(data.tools, 'tool');
+        if (!tools.ok)
+            return tools;
+
+        var educationResult = this._trimTruncate(data.education, 2000);
+        var projectsResult = this._trimTruncate(data.projects, 4000);
+        var combined = skills.data.concat(tools.data);
+        var truncated = headlineResult.truncated || parsedResumeResult.truncated ||
+            educationResult.truncated || projectsResult.truncated;
+
+        if (combined.length > 10) {
+            combined = combined.slice(0, 10);
             truncated = true;
         }
-        if (parsedResume.length > 4000) {
-            parsedResume = parsedResume.substring(0, 3997) + '...';
-            truncated = true;
+
+        combined.sort(function(a, b) {
+            return a.rank - b.rank;
+        });
+
+        var finalSkills = [];
+        var finalTools = [];
+        for (var i = 0; i < combined.length; i++) {
+            combined[i].rank = i + 1;
+            if (combined[i].skillType === 'tool')
+                finalTools.push(combined[i]);
+            else
+                finalSkills.push(combined[i]);
         }
 
         return {
             ok: true,
             data: {
-                headline: headline,
-                parsed_resume: parsedResume,
+                headline: headlineResult.value,
+                parsed_resume: parsedResumeResult.value,
+                education: educationResult.value,
+                experience_years: this._toNumber(data.experience_years, 0, 0, 60),
+                projects: projectsResult.value,
+                skills: finalSkills,
+                tools: finalTools,
                 truncated: truncated
             }
         };
+    },
+
+    _normalizeItemArray: function(items, skillType) {
+        var normalized = [];
+        var code = skillType === 'tool' ? 'INVALID_TOOL_ARRAY' : 'INVALID_SKILL_ARRAY';
+
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            if (!item || typeof item !== 'object' || typeof item.name !== 'string')
+                return this._fail(code, false, 'Gemini returned an invalid ' + skillType + ' entry.', 0);
+
+            var nameResult = this._trimTruncate(item.name, 100);
+            if (!nameResult.value)
+                return this._fail(code, false, 'Gemini returned an empty ' + skillType + ' name.', 0);
+
+            var rank = i + 1;
+            var parsedRank = parseInt(item.rank, 10);
+            if (!isNaN(parsedRank) && parsedRank > 0)
+                rank = parsedRank;
+
+            normalized.push({
+                name: nameResult.value,
+                normalizedName: this._normalizeName(nameResult.value),
+                skillType: skillType,
+                proficiency: this._normalizeProficiency(item.proficiency),
+                confidence: this._toNumber(item.confidence, 0.7, 0, 1),
+                evidence: typeof item.evidence === 'string' ? this._trimTruncate(item.evidence, 500).value : '',
+                rank: rank
+            });
+        }
+
+        return { ok: true, data: normalized };
+    },
+
+    _normalizeProficiency: function(value) {
+        var text = String(value || '').replace(/^\s+|\s+$/g, '').toLowerCase();
+        if (text === 'beginner' || text === 'basic' || text === 'novice')
+            return 'beginner';
+        if (text === 'intermediate' || text === 'proficient')
+            return 'intermediate';
+        if (text === 'advanced' || text === 'expert' || text === 'senior')
+            return 'advanced';
+        return '';
+    },
+
+    _normalizeName: function(value) {
+        return String(value || '')
+            .replace(/^\s+|\s+$/g, '')
+            .replace(/\s+/g, ' ')
+            .toLowerCase();
+    },
+
+    _toNumber: function(value, fallback, min, max) {
+        var number = parseFloat(value);
+        if (isNaN(number))
+            return fallback;
+        if (number < min)
+            number = min;
+        if (number > max)
+            number = max;
+        return Math.round(number * 100) / 100;
+    },
+
+    _trimTruncate: function(value, maxLength) {
+        var text = String(value || '').replace(/^\s+|\s+$/g, '');
+        if (text.length > maxLength)
+            return { value: text.substring(0, maxLength - 3) + '...', truncated: true };
+        return { value: text, truncated: false };
+    },
+
+    _isArray: function(value) {
+        return Object.prototype.toString.call(value) === '[object Array]';
     },
 
     _isRetryable: function(status) {
@@ -256,7 +409,7 @@ GeminiUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-11-24 13:58:58</sys_created_on>
         <sys_id>dc8e36f08738db103d6bcbf5cebb35a8</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>GeminiUtils</sys_name>
         <sys_package display_value="SkillSync" source="x_2311790_skills_0">71dc8ef087b0db103d6bcbf5cebb3541</sys_package>
         <sys_policy>read</sys_policy>

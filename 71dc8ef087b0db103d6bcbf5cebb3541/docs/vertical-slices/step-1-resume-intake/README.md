@@ -39,12 +39,23 @@ Success:
 ```javascript
 {
   ok: true,
-  data: { headline, parsed_resume, truncated },
+  data: {
+    headline,
+    parsed_resume,
+    education,
+    experience_years,
+    projects,
+    skills: [],
+    tools: [],
+    truncated
+  },
   status: 200,
   attempts: 1,
   attachmentSysId: "<sys_id>"
 }
 ```
+
+The extra `data` fields are consumed by Step 2. Step 1 behavior only depends on `headline` and `parsed_resume`.
 
 Failure:
 
@@ -74,6 +85,9 @@ EMPTY_TEXT
 INVALID_RESPONSE
 INVALID_FIELDS
 EMPTY_FIELDS
+INVALID_SKILL_ARRAY
+INVALID_TOOL_ARRAY
+INVALID_STRUCTURED_RESPONSE
 EXCEPTION
 UNKNOWN_FAILURE
 ```

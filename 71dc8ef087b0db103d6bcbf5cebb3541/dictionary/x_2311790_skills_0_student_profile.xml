@@ -14,6 +14,9 @@
         <element label="Parse Error" max_length="1000" name="u_parse_error" type="string"/>
         <element label="Parse Attempts" max_length="40" name="u_parse_attempts" type="integer"/>
         <element label="Parsed Attachment Sys ID" max_length="32" name="u_parsed_attachment_sys_id" type="string"/>
+        <element label="Education" max_length="2000" name="u_education" type="string"/>
+        <element label="Experience Years" name="u_experience_years" type="decimal"/>
+        <element label="Projects" max_length="4000" name="u_projects" type="string"/>
         <index name="index">
             <element name="u_user"/>
         </index>

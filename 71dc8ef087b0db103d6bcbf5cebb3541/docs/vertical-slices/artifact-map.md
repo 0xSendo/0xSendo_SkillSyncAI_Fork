@@ -22,13 +22,20 @@ This map is a developer view only. It does not move generated ServiceNow files.
 | Deleted unfinished parser | `update/sys_script_include_4e06baf087f4db103d6bcbf5cebb3505.xml` |
 | Deleted unused REST message | `update/sys_rest_message_8a66b63487f4db103d6bcbf5cebb353c.xml` and related function/header files |
 
-## Step 2 — Structured skills extraction (planned)
+## Step 2 — Structured skills extraction
 
 | Concern | Generated artifact |
 |---|---|
+| Structured Gemini parser | `update/sys_script_include_dc8e36f08738db103d6bcbf5cebb35a8.xml` |
+| Structured skills writer | `update/sys_script_include_f100000e87b0db103d6bcbf5cebb350e.xml` |
+| Structured parse orchestration | `update/sys_script_f3de32348738db103d6bcbf5cebb35e8.xml` |
 | Skill master schema | `dictionary/x_2311790_skills_0_skill_master.xml` |
 | Student skill schema | `dictionary/x_2311790_skills_0_student_skill.xml` |
-| Existing cap rule — currently uses wrong table name | `update/sys_script_2a355e3487f0db103d6bcbf5cebb3536.xml` |
+| Profile schema with education/years/projects | `dictionary/x_2311790_skills_0_student_profile.xml` |
+| New field definitions | `update/sys_dictionary_x_2311790_skills_0_*.xml` |
+| New choice definitions | `update/sys_choice_x_2311790_skills_0_*.xml` |
+| Corrected cap rule | `update/sys_script_2a355e3487f0db103d6bcbf5cebb3536.xml` |
+| Read-only parsed skills UI | `update/sp_widget_278a9a308734db103d6bcbf5cebb35ea.xml` |
 | Table roles | `update/sys_user_role_*skill*.xml` |
 
 ## Step 3 — Embeddings and matching (planned)
