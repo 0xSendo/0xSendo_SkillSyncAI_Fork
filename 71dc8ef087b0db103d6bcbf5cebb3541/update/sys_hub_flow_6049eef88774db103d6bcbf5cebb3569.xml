@@ -24,7 +24,7 @@
         <outputs/>
         <pre_compiled>false</pre_compiled>
         <remote_trigger_id>ae9a6ebc8774db103d6bcbf5cebb35ee</remote_trigger_id>
-        <run_as>user</run_as>
+        <run_as>system</run_as>
         <run_with_roles/>
         <sc_callable>false</sc_callable>
         <show_draft_actions>false</show_draft_actions>
@@ -513,7 +513,7 @@
         <outputs/>
         <parent_flow display_value="Set Resume as Pending">6049eef88774db103d6bcbf5cebb3569</parent_flow>
         <remote_trigger_id/>
-        <run_as>user</run_as>
+        <run_as>system</run_as>
         <run_with_roles/>
         <sc_callable>false</sc_callable>
         <status>published</status>

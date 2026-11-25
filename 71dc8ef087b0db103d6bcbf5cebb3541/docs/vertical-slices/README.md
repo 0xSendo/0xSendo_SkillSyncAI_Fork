@@ -26,11 +26,12 @@ docs/vertical-slices/
 ├── step-4-recruiter-portal/
 │   └── README.md                     # Implemented Step 4 behavior and contracts
 ├── step-5-rbac-platform/
-│   └── README.md                     # Planned, not implemented
+│   └── README.md                     # Implemented Step 5 behavior and contracts
 ├── step-1-test-plan.md               # Step 1 PDI test matrix
 ├── step-2-test-plan.md               # Step 2 PDI test matrix
 ├── step-3-test-plan.md               # Step 3 PDI test matrix
-└── step-4-test-plan.md               # Step 4 PDI test matrix
+├── step-4-test-plan.md               # Step 4 PDI test matrix
+└── step-5-test-plan.md               # Step 5 PDI test matrix
 ```
 
 ## Rules for future work
@@ -49,4 +50,4 @@ docs/vertical-slices/
 | Step 2 — Structured skills extraction | Implemented in source; requires PDI testing |
 | Step 3 — Embeddings and matching | Implemented in source; requires PDI testing |
 | Step 4 — Recruiter portal and workflow | Implemented in source; requires PDI testing |
-| Step 5 — RBAC and platform hardening | Not implemented |
+| Step 5 — RBAC and platform hardening | Implemented in source; requires PDI testing |

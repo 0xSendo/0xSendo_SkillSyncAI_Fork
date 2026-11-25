@@ -72,12 +72,22 @@ This map is a developer view only. It does not move generated ServiceNow files.
 | Existing internship/application tables | `dictionary/x_2311790_skills_0_internship*.xml` |
 | Existing resume upload widget | `update/sp_widget_278a9a308734db103d6bcbf5cebb35ea.xml` |
 
-## Step 5 — RBAC and platform hardening (planned)
+## Step 5 — RBAC and platform hardening
 
 | Concern | Generated artifact |
 |---|---|
-| Roles | `update/sys_user_role_*.xml` |
-| Table ACLs | `update/sys_security_acl_*.xml` |
-| ACL role mappings | `update/sys_security_acl_role_*.xml` |
-| Scope settings | `sys_app_71dc8ef087b0db103d6bcbf5cebb3541.xml` |
-| Scope privileges | `update/sys_scope_privilege_*.xml` |
+| Row-scoped table ACLs | The existing 20 `update/sys_security_acl_*.xml` files, now advanced scripts with row ownership conditions |
+| ACL role mappings | Role mapping records in the existing `update/sys_security_acl_role_*.xml` files and appended to each ACL file |
+| Student Profile field ACLs | `update/sys_security_acl_e1000020*.xml` for `embedding`, parse internals, raw resume fields, and `u_user` |
+| Internship field ACLs | `update/sys_security_acl_e1000020*.xml` for embedding internals |
+| Application field ACLs | `update/sys_security_acl_e1000020*.xml` for `u_application_status` and review metadata |
+| Attachment ACLs | `update/sys_security_acl_e1000030*.xml` for create/read/write/delete on SkillSync resume attachments |
+| Scope settings | `sys_app_71dc8ef087b0db103d6bcbf5cebb3541.xml` — private, restricted table access, enforcing runtime tracking |
+| Denied credential privilege | `update/sys_scope_privilege_3acbfe7c87f4db103d6bcbf5cebb35aa.xml` |
+| System User flows | `update/sys_hub_flow_0b76127487f0db103d6bcbf5cebb35b8.xml`, `update/sys_hub_flow_13d13af887b4db103d6bcbf5cebb358e.xml`, `update/sys_hub_flow_6049eef88774db103d6bcbf5cebb3569.xml` |
+| Sensitive field presentation | `update/sys_ui_list_x_2311790_skills_0_student_profile_null.xml`, `update/sys_ui_section_ea956ab08774db103d6bcbf5cebb35c5.xml` |
+| Role-aware dashboard widget | `update/sp_widget_e1000040000000000000000000000001.xml` |
+| Role header column and instance | `update/sp_column_e1000040000000000000000000000002.xml`, `update/sp_instance_e1000040000000000000000000000003.xml` |
+| Gated portal pages | `update/sp_page_3b7852f887f0db103d6bcbf5cebb35ad.xml`, `update/sp_page_5c7b56b08734db103d6bcbf5cebb3542.xml`, `update/sp_page_9fc752b887f0db103d6bcbf5cebb35ca.xml`, `update/sp_page_a0cd56b08734db103d6bcbf5cebb3553.xml` |
+| Inactive orphan instances | `update/sp_instance_23cb52f08734db103d6bcbf5cebb35ca.xml`, `update/sp_instance_37e796b887f0db103d6bcbf5cebb355f.xml` |
+| Gated upload instance | `update/sp_instance_8b8ed2388734db103d6bcbf5cebb35fa.xml` |
