@@ -56,14 +56,21 @@ This map is a developer view only. It does not move generated ServiceNow files.
 | Internship schema | `dictionary/x_2311790_skills_0_internship.xml` |
 | Application schema | `dictionary/x_2311790_skills_0_internship_application.xml` |
 
-## Step 4 — Recruiter portal and workflow (planned)
+## Step 4 — Recruiter portal and workflow
 
 | Concern | Generated artifact |
 |---|---|
-| Accept Applicant email flow | `update/sys_hub_flow_0b76127487f0db103d6bcbf5cebb35b8.xml` |
-| Internship and application tables | `dictionary/x_2311790_skills_0_internship*.xml` |
-| Portal pages | `update/sp_page_*.xml` |
-| Resume upload widget | `update/sp_widget_278a9a308734db103d6bcbf5cebb35ea.xml` |
+| Application lifecycle schema | `dictionary/x_2311790_skills_0_internship_application.xml` |
+| Application status field and choices | `update/sys_dictionary_x_2311790_skills_0_internship_application_u_application_status.xml`, `update/sys_choice_x_2311790_skills_0_internship_application_u_application_status.xml` |
+| Review metadata fields | `update/sys_dictionary_x_2311790_skills_0_internship_application_u_reviewed_by.xml`, `update/sys_dictionary_x_2311790_skills_0_internship_application_u_reviewed_at.xml`, `update/sys_dictionary_x_2311790_skills_0_internship_application_u_review_note.xml` |
+| Default status rule | `update/sys_script_e100000587b0db103d6bcbf5cebb3505.xml` |
+| Review audit rule | `update/sys_script_e100000687b0db103d6bcbf5cebb3506.xml` |
+| Recruiter role | `update/sys_user_role_e100000787b0db103d6bcbf5cebb3507.xml` |
+| Recruiter review widget | `update/sp_widget_e100000887b0db103d6bcbf5cebb3508.xml` |
+| Recruiter page and layout | `update/sp_page_e100000987b0db103d6bcbf5cebb3509.xml`, `update/sp_container_e100000a87b0db103d6bcbf5cebb350a.xml`, `update/sp_row_e100000b87b0db103d6bcbf5cebb350b.xml`, `update/sp_column_e100000c87b0db103d6bcbf5cebb350c.xml`, `update/sp_instance_e100000d87b0db103d6bcbf5cebb350d.xml` |
+| Retargeted acceptance email flow | `update/sys_hub_flow_0b76127487f0db103d6bcbf5cebb35b8.xml` |
+| Existing internship/application tables | `dictionary/x_2311790_skills_0_internship*.xml` |
+| Existing resume upload widget | `update/sp_widget_278a9a308734db103d6bcbf5cebb35ea.xml` |
 
 ## Step 5 — RBAC and platform hardening (planned)
 
