@@ -38,13 +38,23 @@ This map is a developer view only. It does not move generated ServiceNow files.
 | Read-only parsed skills UI | `update/sp_widget_278a9a308734db103d6bcbf5cebb35ea.xml` |
 | Table roles | `update/sys_user_role_*skill*.xml` |
 
-## Step 3 — Embeddings and matching (planned)
+## Step 3 — Embeddings and matching
 
 | Concern | Generated artifact |
 |---|---|
-| Profile embedding field | `dictionary/x_2311790_skills_0_student_profile.xml` |
-| Internship embedding and requirements | `dictionary/x_2311790_skills_0_internship.xml` |
-| Application score and rationale | `dictionary/x_2311790_skills_0_internship_application.xml` |
+| Embedding service | `update/sys_script_include_c100000587b0db103d6bcbf5cebb3505.xml` |
+| Matching engine | `update/sys_script_include_c100000687b0db103d6bcbf5cebb3506.xml` |
+| Profile embedding trigger | `update/sys_script_c100000787b0db103d6bcbf5cebb3507.xml` |
+| Internship embedding trigger | `update/sys_script_c100000887b0db103d6bcbf5cebb3508.xml` |
+| Application scoring trigger | `update/sys_script_c100000987b0db103d6bcbf5cebb3509.xml` |
+| Application ranking trigger | `update/sys_script_c100002087b0db103d6bcbf5cebb3520.xml` |
+| Profile embedding/version metadata | `update/sys_dictionary_x_2311790_skills_0_student_profile_u_embedding_*.xml` |
+| Internship requirements and embedding metadata | `update/sys_dictionary_x_2311790_skills_0_internship_*.xml` |
+| Application score/rank fields | `update/sys_dictionary_x_2311790_skills_0_internship_application_*.xml` |
+| Embedding and matching properties | `update/sys_properties_c100000*.xml` |
+| Profile schema | `dictionary/x_2311790_skills_0_student_profile.xml` |
+| Internship schema | `dictionary/x_2311790_skills_0_internship.xml` |
+| Application schema | `dictionary/x_2311790_skills_0_internship_application.xml` |
 
 ## Step 4 — Recruiter portal and workflow (planned)
 
